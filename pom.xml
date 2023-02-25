@@ -7,10 +7,10 @@
 		<version>2.5.6</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.heroes.api</groupId>
-	<artifactId>heroes-api</artifactId>
+	<groupId>com.choreio.api</groupId>
+	<artifactId>choreio-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>heroes-api</name>
+	<name>choreio-api</name>
 	<description>API for Tour of Heroes</description>
 	<properties>
 		<java.version>11</java.version>
@@ -74,7 +74,7 @@
 					  </execution>
 				</executions>
 				<configuration>
-					<mainClass>com.heroes.api.heroesapi.HeroesApiApplication</mainClass>
+					<mainClass>com.choreio.api.choreioapi.ChoreIOApiApplication</mainClass>
 					<arguments></arguments>
 				</configuration>
 			</plugin>
@@ -97,67 +97,6 @@
 							<goal>prepare-agent</goal>
 						</goals>
 					</execution>
-					<!-- attached to Maven test phase -->
-					<execution>
-						<id>report</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>controller</id>
-						<configuration>
-							<footer>Controller Tier</footer>
-							<title>Heroes API Controller Tier Test Coverage</title>
-							<outputDirectory>target/site/jacoco/controller</outputDirectory>
-						</configuration>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>persistence</id>
-						<configuration>
-							<footer>Persistence Tier</footer>
-							<title>Heroes API Persistence Tier Test Coverage</title>
-							<outputDirectory>target/site/jacoco/persistence</outputDirectory>
-						</configuration>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>model</id>
-						<configuration>
-							<footer>Model Tier</footer>
-							<title>Heroes API Model Tier Test Coverage</title>
-							<outputDirectory>target/site/jacoco/model</outputDirectory>
-						</configuration>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>jacoco-check</id>
-						<goals>
-						  <goal>check</goal>
-						</goals>
-						<configuration>
-							<rules>
-							  <rule>
-								  <element>BUNDLE</element>
-								  <limits>
-								 <limit>
-								   <counter>INSTRUCTION</counter>
-								   <value>COVEREDRATIO</value>
-								   <minimum>0.90</minimum>
-								 </limit>
-							 </limits>
-								 </rule>
-								</rules>
-					   </configuration>
-			 		</execution>
 				</executions>
 			</plugin>
 			<plugin>
@@ -171,7 +110,7 @@
 					  <descriptors>
 						<descriptor>src/assembly/zip.xml</descriptor>
 					  </descriptors>
-					  <finalName>heroes-api</finalName>
+					  <finalName>choreio-api</finalName>
 					  <appendAssemblyId>false</appendAssemblyId>
 					</configuration>
 					<goals>
