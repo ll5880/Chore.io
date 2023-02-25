@@ -19,9 +19,9 @@
         },
         {
             "type": "java",
-            "name": "Launch ChoreIOApplication",
+            "name": "Launch ChoreIOApiApplication",
             "request": "launch",
-            "mainClass": "com.choreio.api.choreioapi.ChoreIOApplication",
+            "mainClass": "com.choreio.api.choreioapi.ChoreIOApiApplication",
             "projectName": "choreio-api"
         }
     ]

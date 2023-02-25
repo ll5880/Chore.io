@@ -74,7 +74,7 @@
 					  </execution>
 				</executions>
 				<configuration>
-					<mainClass>com.choreio.api.choreioapi.ChoreIOApplication</mainClass>
+					<mainClass>com.choreio.api.choreioapi.ChoreIOApiApplication</mainClass>
 					<arguments></arguments>
 				</configuration>
 			</plugin>
