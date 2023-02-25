@@ -1,5 +1,4 @@
 package com.choreio.api.choreioapi.persistence;
-
 import java.io.IOException;
 import com.choreio.api.choreioapi.model.Prize;
 
