@@ -12,10 +12,10 @@
         },
         {
             "type": "java",
-            "name": "Launch HeroesApiApplication",
+            "name": "Launch ChoreIOApplication",
             "request": "launch",
-            "mainClass": "com.heroes.api.heroesapi.HeroesApiApplication",
-            "projectName": "heroes-api"
+            "mainClass": "com.choreio.api.choreioapi.ChoreIOApplication",
+            "projectName": "choreio-api"
         }
     ]
 }

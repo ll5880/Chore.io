@@ -1,4 +1,4 @@
-package com.heroes.api.heroesapi.persistence;
+package com.choreio.api.choreioapi.persistence;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,7 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.heroes.api.heroesapi.model.Hero;
+import com.choreio.api.choreioapi.model.Hero;
 
 /**
  * Implements the functionality for JSON file-based peristance for Heroes

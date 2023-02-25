@@ -1,7 +1,7 @@
-package com.heroes.api.heroesapi.persistence;
+package com.choreio.api.choreioapi.persistence;
 
 import java.io.IOException;
-import com.heroes.api.heroesapi.model.Hero;
+import com.choreio.api.choreioapi.model.Hero;
 
 /**
  * Defines the interface for Hero object persistence

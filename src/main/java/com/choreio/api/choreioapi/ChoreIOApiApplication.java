@@ -1,13 +1,13 @@
-package com.heroes.api.heroesapi;
+package com.choreio.api.choreioapi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class HeroesApiApplication {
+public class ChoreIOApiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(HeroesApiApplication.class, args);
+		SpringApplication.run(ChoreIOApiApplication.class, args);
 	}
 
 }

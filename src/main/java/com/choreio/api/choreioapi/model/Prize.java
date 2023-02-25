@@ -1,4 +1,4 @@
-package com.heroes.api.heroesapi.model;
+package com.choreio.api.choreioapi.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

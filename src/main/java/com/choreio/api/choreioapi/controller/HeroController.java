@@ -1,4 +1,4 @@
-package com.heroes.api.heroesapi.controller;
+package com.choreio.api.choreioapi.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,8 +16,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.heroes.api.heroesapi.persistence.HeroDAO;
-import com.heroes.api.heroesapi.model.Hero;
+import com.choreio.api.choreioapi.persistence.HeroDAO;
+import com.choreio.api.choreioapi.model.Hero;
 
 /**
  * Handles the REST API requests for the Hero resource
