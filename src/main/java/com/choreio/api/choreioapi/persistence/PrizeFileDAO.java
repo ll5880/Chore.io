@@ -47,7 +47,6 @@ public class PrizeFileDAO implements PrizeDAO {
         this.objectMapper = objectMapper;
         load();  // load the heroes from the file
     }
-
     
     /**
      * Generates the next id for a new {@linkplain Prize prize}
