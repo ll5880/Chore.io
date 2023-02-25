@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch ChoreIOApiApplication",
+            "request": "launch",
+            "mainClass": "com.choreio.api.choreioapi.ChoreIOApiApplication",
+            "projectName": "choreio-api"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
