@@ -10,6 +10,7 @@ public class Prize {
 
     public Prize(@JsonProperty("id") int id, @JsonProperty("prizeName") String prizeName, 
             @JsonProperty("prizeDesc") String prizeDesc, @JsonProperty("pointCost") int pointCost){
+        this.id = id;
         this.prizeName = prizeName;
         this.prizeDesc = prizeDesc;
         this.pointCost = pointCost;
