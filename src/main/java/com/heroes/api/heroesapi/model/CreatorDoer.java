@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  * @author Patricio Solis
  */
 
- public class CreatorDoer{
+ public class CreatorDoer {
     @JsonProperty("userName") private String userName;
     @JsonProperty("points") private int points;
     @JsonProperty("completedChores") private ArrayList<Chore> completedChores;
@@ -44,14 +44,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
         this.points += chore.getPoints();
     }
 
+    //
+    //
+    //
+
     public void claimPrize(Prize prize){
         this.claimedPrizes.add(prize);
         this.points -= prize.getPointCost();
     }
 
-    public Prize redeemPrize(){
+    //takes a specific prize and removes it from the claimed prizes list
+    //
+    //
+    public Prize redeemPrize(int prizeID){
         if(claimedPrizes.size() > 0){
-            return this.claimedPrizes.remove(0);
+            return this.claimedPrizes.remove(prizeID);
         }
         return null;
     }
