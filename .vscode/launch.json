@@ -9,6 +9,13 @@
             "name": "Launch ChoreIOApiApplication",
             "request": "launch",
             "mainClass": "com.choreio.api.choreioapi.ChoreIOApiApplication",
+            "projectName": "heroes-api"
+        },
+        {
+            "type": "java",
+            "name": "Launch ChoreIOApiApplication",
+            "request": "launch",
+            "mainClass": "com.choreio.api.choreioapi.ChoreIOApiApplication",
             "projectName": "choreio-api"
         },
         {
