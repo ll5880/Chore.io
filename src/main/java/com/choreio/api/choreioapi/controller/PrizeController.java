@@ -92,8 +92,6 @@ public class PrizeController {
      * HTTP status of OK<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      * <p>
-     * Example: Find all heroes that contain the text "ma"
-     * GET http://localhost:8080/heroes/?name=ma
      */
     @GetMapping("/")
     public ResponseEntity<Prize[]> searchPrizes(@RequestParam String name) {
@@ -111,7 +109,7 @@ public class PrizeController {
     /**
      * Creates a {@linkplain Prize prize} with the provided prize object
      * 
-     * @param hero - The {@link Prize prize} to create
+     * @param prize - The {@link Prize prize} to create
      * 
      * @return ResponseEntity with created {@link Prize prize} object and HTTP status of CREATED<br>
      * ResponseEntity with HTTP status of CONFLICT if {@link Prize prize} object already exists<br>

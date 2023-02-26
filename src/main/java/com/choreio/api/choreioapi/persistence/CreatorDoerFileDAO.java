@@ -19,16 +19,12 @@ import com.choreio.api.choreioapi.model.Prize;
 @Component
 public class CreatorDoerFileDAO implements CreatorDoerDAO{
     private static final Logger LOG = Logger.getLogger(PrizeFileDAO.class.getName());
-    Map<String,CreatorDoer> createrDoers;   // Provides a local cache of the hero objects
-                                // so that we don't need to read from the file
-                                // each time
-    private ObjectMapper objectMapper;  // Provides conversion between Hero
-                                        // objects and JSON text format written
-                                        // to the file
+    Map<String,CreatorDoer> createrDoers;   // Provides a local cache 
+    private ObjectMapper objectMapper;  // Provides conversion to JSON
     private String filename;    // Filename to read from and write to
 
     /**
-     * Creates a Hero File Data Access Object
+     * Creates a CreatorDoer File Data Access Object
      * 
      * @param filename Filename to read from and write to
      * @param objectMapper Provides JSON Object to/from Java Object serialization and deserialization
@@ -38,7 +34,7 @@ public class CreatorDoerFileDAO implements CreatorDoerDAO{
     public CreatorDoerFileDAO(@Value("${creatordoers.file}") String filename,ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
-        load();  // load the heroes from the file
+        load();
     }
 
     private CreatorDoer[] getCreatorDoersArray() { 
@@ -73,12 +69,9 @@ public class CreatorDoerFileDAO implements CreatorDoerDAO{
     private boolean load() throws IOException {
         createrDoers = new HashMap<>();
 
-        // Deserializes the JSON objects from the file into an array of heroes
-        // readValue will throw an IOException if there's an issue with the file
-        // or reading from the file
+        // Deserializes the JSON objects
         CreatorDoer[] creatorDoersArray = objectMapper.readValue(new File(filename),CreatorDoer[].class);
 
-        // Add each Buyer to the hash set
         for (CreatorDoer creatorDoer : creatorDoersArray) {
             createrDoers.put(creatorDoer.getUserName(), creatorDoer);
         }

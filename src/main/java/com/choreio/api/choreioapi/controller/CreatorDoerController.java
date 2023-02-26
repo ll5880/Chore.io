@@ -39,7 +39,7 @@ public class CreatorDoerController {
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<CreatorDoer> getCreatorDoer(@PathVariable String username) {
+    public ResponseEntity<CreatorDoer> getCreatorDoer(@PathVariable String username) { // for attempting to log in
         LOG.info("GET /username/" + username);
         try {
             CreatorDoer creatordoer = creatorDoerDAO.getCreatorDoer(username);
@@ -68,26 +68,8 @@ public class CreatorDoerController {
         }
     }
 
-    // @GetMapping("/{username}")
-    // public ResponseEntity<CreatorDoer> login(@PathVariable String username) {
-    //     LOG.info("GET creatordoers/" + username);
-
-    //     try{
-    //         CreatorDoer creatorDoer = creatorDoerDAO.login(username);
-    //         if (creatorDoer == null) {
-    //             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    //         } else {
-    //             return new ResponseEntity<CreatorDoer>(creatorDoer, HttpStatus.OK);
-    //         }
-    //     }
-    //     catch(IOException e) {
-    //         LOG.log(Level.SEVERE,e.getLocalizedMessage());
-    //         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }  
-    // }
-
     @PostMapping("/{username}")
-    public ResponseEntity<CreatorDoer> createCreatorDoer(@PathVariable String username) {
+    public ResponseEntity<CreatorDoer> createCreatorDoer(@PathVariable String username) { // creates account
         LOG.info("POST /creatordoers " + username);
 
         try{            

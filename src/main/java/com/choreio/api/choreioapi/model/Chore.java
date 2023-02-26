@@ -74,8 +74,8 @@ public class Chore {
     }
 
     /**
-     * Retrieves the id of the hero
-     * @return The id of the hero
+     * Retrieves the id of the chore
+     * @return The id of the chore
      */
     public int getId() {
         return id;

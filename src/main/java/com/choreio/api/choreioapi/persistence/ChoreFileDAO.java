@@ -16,10 +16,6 @@ import com.choreio.api.choreioapi.model.Chore;
 /**
  * Implements the functionality for JSON file-based peristance for Chores
  * 
- * {@literal @}Component Spring annotation instantiates a single instance of this
- * class and injects the instance into other classes as needed
- * 
- * @author SWEN Faculty
  */
 @Component
 public class ChoreFileDAO implements ChoreDAO {

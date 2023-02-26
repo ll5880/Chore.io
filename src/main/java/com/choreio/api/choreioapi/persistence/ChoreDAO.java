@@ -5,8 +5,6 @@ import com.choreio.api.choreioapi.model.Chore;
 
 /**
  * Defines the interface for Chore object persistence
- * 
- * @author SWEN Faculty
  */
 public interface ChoreDAO {
     /**

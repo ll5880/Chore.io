@@ -16,26 +16,17 @@ import com.choreio.api.choreioapi.model.Prize;
 
 /**
  * Implements the functionality for JSON file-based peristance for Prizes
- * 
- * {@literal @}Component Spring annotation instantiates a single instance of this
- * class and injects the instance into other classes as needed
- * 
- * @author SWEN Faculty
  */
 @Component
 public class PrizeFileDAO implements PrizeDAO {
     private static final Logger LOG = Logger.getLogger(PrizeFileDAO.class.getName());
-    Map<Integer,Prize> prizes;   // Provides a local cache of the hero objects
-                                // so that we don't need to read from the file
-                                // each time
-    private ObjectMapper objectMapper;  // Provides conversion between Hero
-                                        // objects and JSON text format written
-                                        // to the file
-    private static int nextId;  // The next Id to assign to a new hero
+    Map<Integer,Prize> prizes;   // Provides a local cache
+    private ObjectMapper objectMapper;  // Provides conversion to JSON
+    private static int nextId;  // The next Id to assign to a new prize
     private String filename;    // Filename to read from and write to
 
     /**
-     * Creates a Hero File Data Access Object
+     * Creates a Prize File Data Access Object
      * 
      * @param filename Filename to read from and write to
      * @param objectMapper Provides JSON Object to/from Java Object serialization and deserialization
@@ -45,7 +36,7 @@ public class PrizeFileDAO implements PrizeDAO {
     public PrizeFileDAO(@Value("${prizes.file}") String filename,ObjectMapper objectMapper) throws IOException {
         this.filename = filename;
         this.objectMapper = objectMapper;
-        load();  // load the heroes from the file
+        load();
     }
     
     /**
@@ -121,12 +112,9 @@ public class PrizeFileDAO implements PrizeDAO {
         prizes = new TreeMap<>();
         nextId = 0;
 
-        // Deserializes the JSON objects from the file into an array of heroes
-        // readValue will throw an IOException if there's an issue with the file
-        // or reading from the file
+        // Deserializes the JSON objects
         Prize[] prizeArray = objectMapper.readValue(new File(filename),Prize[].class);
 
-        // Add each hero to the tree map and keep track of the greatest id
         for (Prize prize : prizeArray) {
             prizes.put(prize.getId(), prize);
             if (prize.getId() > nextId)
@@ -192,7 +180,7 @@ public class PrizeFileDAO implements PrizeDAO {
     public Prize updatePrize(Prize prize) throws IOException {
         synchronized(prizes) {
             if (prizes.containsKey(prize.getId()) == false)
-                return null;  // hero does not exist
+                return null;  // prize does not exist
             prizes.put(prize.getId(), prize);
             save(); // may throw an IOException
             return prize;

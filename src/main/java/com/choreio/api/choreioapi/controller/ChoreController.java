@@ -91,32 +91,6 @@ public class ChoreController {
     }
 
     /**
-     * Responds to the GET request for all {@linkplain Chore chores} whose name contains
-     * the text in name
-     * 
-     * @param name The name parameter which contains the text used to find the {@link Chore chores}
-     * 
-     * @return ResponseEntity with array of {@link Chore chore} objects (may be empty) and
-     * HTTP status of OK<br>
-     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
-     * <p>
-     * Example: Find all heroes that contain the text "ma"
-     * GET http://localhost:8080/heroes/?name=ma
-     */
-    @GetMapping("/")
-    public ResponseEntity<Chore[]> searchChores(@RequestParam String name) {
-        LOG.info("GET /chores/?name="+name);
-        try {
-            Chore[] chores = choreDAO.findChores(name);
-            return new ResponseEntity<Chore[]>(chores, HttpStatus.OK);
-        }
-        catch(IOException e) {
-            LOG.log(Level.SEVERE,e.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    /**
      * Creates a {@linkplain Chore chore} with the provided chore object
      * 
      * @param chore - The {@link Chore chore} to create
