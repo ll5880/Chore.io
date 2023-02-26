@@ -1,15 +1,20 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <img alt="chore-io" src="./assets/chore-io.png">
+    <HelloWorld msg="Welcome to Chore.io"/>
+    <Chorescomponent msg="Heres a list of chores"/>
+  </div>
 </template>
 
 <script>
+import Chorescomponent from './components/Chorescomponent.vue';
 import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    HelloWorld,
+    Chorescomponent,
   }
 }
 </script>
