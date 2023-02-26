@@ -162,10 +162,11 @@ public class ChoreFileDAO implements ChoreDAO {
     @Override
     public Chore getChore(int id) {
         synchronized(chores) {
-            if (chores.containsKey(id))
+            if (chores.containsKey(id)) {
                 return chores.get(id);
-            else
+            } else {
                 return null;
+            }
         }
     }
 

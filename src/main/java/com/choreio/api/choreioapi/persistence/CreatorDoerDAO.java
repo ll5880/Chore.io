@@ -10,6 +10,10 @@ public interface CreatorDoerDAO {
 
     CreatorDoer login( String username) throws IOException;
 
+    CreatorDoer getCreatorDoer( String username ) throws IOException;
+
+    CreatorDoer[] getCreatorDoers() throws IOException;
+
     /**
      * Creates a new user as a creater of chores or completer of chorse {@linkplain CreatorDoer creatordoer} 
      * with the given username

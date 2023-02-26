@@ -36,22 +36,28 @@ import com.fasterxml.jackson.annotation.JsonProperty;
         return this.completedChores;
     }
 
-    public Object[] getClaimedPrizes(){
-        return  this.claimedPrizes.values().toArray();
-    }
+    // public Object[] getClaimedPrizes(){
+    //     return this.claimedPrizes.values().toArray();
+    // }
 
     public void completeChore(Chore chore){
         this.completedChores.add(chore);
         this.points += chore.getPoints();
     }
 
-    public void claimPrize(Prize prize){
-        this.claimedPrizes.put(prize.getId(), prize);
-        this.points -= prize.getPointCost();
+    //true for fulfilled
+    //false for not 
+    public boolean claimPrize(Prize prize){
+        if (this.points >= prize.getPointCost()) {
+            this.claimedPrizes.put(prize.getId(), prize);
+            this.points -= prize.getPointCost();
+            return true;
+        }
+        return false;
     }
 
     public Prize redeemPrize(int prizeID){
-        if(claimedPrizes.size() > 0){
+        if(claimedPrizes.containsKey(prizeID)){
             return this.claimedPrizes.remove(prizeID);
         }
         return null;

@@ -141,7 +141,9 @@ public class CreatorDoerFileDAO implements CreatorDoerDAO{
                 return null; 
             else {
                 // Claims prize
-                creatorDoer.claimPrize(prize);
+                if (!creatorDoer.claimPrize(prize)) {
+                    return null;
+                }
 
                 // Update CreatorDoer list with edited CreatorDoer
                 createrDoers.put(creatorDoer.getUserName(), creatorDoer);
@@ -169,6 +171,25 @@ public class CreatorDoerFileDAO implements CreatorDoerDAO{
                 save(); 
                 return creatorDoer;
             }
+        }
+    }
+
+    @Override
+    public CreatorDoer getCreatorDoer(String username) throws IOException {
+        synchronized(createrDoers) {
+            if (!createrDoers.containsKey(username)) {
+                return null;
+            } else {
+                CreatorDoer creatorDoer = createrDoers.get(username);
+                return creatorDoer;
+            }
+        }
+    }
+
+    @Override
+    public CreatorDoer[] getCreatorDoers() {
+        synchronized(createrDoers) {
+            return getCreatorDoersArray();
         }
     }
 }
