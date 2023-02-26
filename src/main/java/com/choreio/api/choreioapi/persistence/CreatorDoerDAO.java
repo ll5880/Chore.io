@@ -51,5 +51,5 @@ public interface CreatorDoerDAO {
      * @throws IOException if underlying storage cannot be accessed
      */
     //remove the prize from the claimprize list of createrdoer
-     CreatorDoer redeemPrize( String username, int prizeID ) throws IOException;
+     CreatorDoer redeemPrize( String username, Prize prize ) throws IOException;
 }

@@ -120,7 +120,7 @@ public class CreatorDoerFileDAO implements CreatorDoerDAO{
             if (createrDoers.containsKey(username) == false)
                 return null; 
             else {
-                // Add to cart
+                // 
                 creatorDoer.completeChore(chore);
 
                 // Update buyers list with new cart
@@ -153,7 +153,7 @@ public class CreatorDoerFileDAO implements CreatorDoerDAO{
     }
 
     @Override
-    public CreatorDoer redeemPrize(String username, int prizeID) throws IOException {
+    public CreatorDoer redeemPrize(String username, Prize prize) throws IOException {
         synchronized(createrDoers) {
             CreatorDoer creatorDoer = createrDoers.get(username);
 
@@ -162,7 +162,7 @@ public class CreatorDoerFileDAO implements CreatorDoerDAO{
                 return null; 
             else {
                 // Delete item from cart
-                creatorDoer.redeemPrize(prizeID);
+                creatorDoer.redeemPrize(prize.getId());
 
                 // Update buyers list with new cart
                 createrDoers.put(creatorDoer.getUserName(), creatorDoer);
