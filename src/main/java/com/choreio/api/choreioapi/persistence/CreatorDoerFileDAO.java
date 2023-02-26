@@ -116,14 +116,14 @@ public class CreatorDoerFileDAO implements CreatorDoerDAO{
         synchronized(createrDoers) {
             CreatorDoer creatorDoer = createrDoers.get(username);
 
-            // Buyer is not found
+            // CreatorDoer is not found
             if (createrDoers.containsKey(username) == false)
                 return null; 
             else {
-                // 
+                // Complete Chore
                 creatorDoer.completeChore(chore);
 
-                // Update buyers list with new cart
+                // Update CreatorDoer list with edited CreatorDoer
                 createrDoers.put(creatorDoer.getUserName(), creatorDoer);
                 save(); 
                 return creatorDoer;
@@ -136,16 +136,16 @@ public class CreatorDoerFileDAO implements CreatorDoerDAO{
         synchronized(createrDoers) {
             CreatorDoer creatorDoer = createrDoers.get(username);
 
-            // Buyer is not found
+            // CreatorDoer is not found
             if (createrDoers.containsKey(username) == false)
                 return null; 
             else {
-                // Add to cart
+                // Claims prize
                 if (!creatorDoer.claimPrize(prize)) {
                     return null;
                 }
 
-                // Update buyers list with new cart
+                // Update CreatorDoer list with edited CreatorDoer
                 createrDoers.put(creatorDoer.getUserName(), creatorDoer);
                 save(); 
                 return creatorDoer;
@@ -159,14 +159,14 @@ public class CreatorDoerFileDAO implements CreatorDoerDAO{
         synchronized(createrDoers) {
             CreatorDoer creatorDoer = createrDoers.get(username);
 
-            // Buyer is not found
+            // CreatorDoer is not found
             if (createrDoers.containsKey(username) == false)
                 return null; 
             else {
-                // Delete item from cart
+                // Redeems prize
                 creatorDoer.redeemPrize(prizeID);
 
-                // Update buyers list with new cart
+                // Update CreatorDoer list with edited CreatorDoer
                 createrDoers.put(creatorDoer.getUserName(), creatorDoer);
                 save(); 
                 return creatorDoer;
