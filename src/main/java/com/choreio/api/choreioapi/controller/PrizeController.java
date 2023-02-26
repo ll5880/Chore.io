@@ -123,7 +123,7 @@ public class PrizeController {
         try {
             Prize[] prizes = prizeDAO.getPrizes();
             for (Prize i : prizes) {
-                if (i.getId() == prize.getId()) {
+                if (i.getPrizeName().equals(prize.getPrizeName())) {
                     return new ResponseEntity<>(HttpStatus.CONFLICT);
                 }
             }

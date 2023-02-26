@@ -131,7 +131,7 @@ public class HeroController {
         try {
             Hero[] heroes = heroDao.getHeroes();
             for (Hero i : heroes) {
-                if (i.getId() == hero.getId()) {
+                if (i.getName().equals(hero.getName())) {
                     return new ResponseEntity<>(HttpStatus.CONFLICT);
                 }
             }

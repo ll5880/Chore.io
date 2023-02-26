@@ -131,7 +131,7 @@ public class ChoreController {
         try {
             Chore[] chores = choreDAO.getChores();
             for (Chore i : chores) {
-                if (i.getId() == chore.getId()) {
+                if (i.getChoreName().equals(chore.getChoreName())) {
                     return new ResponseEntity<>(HttpStatus.CONFLICT);
                 }
             }
