@@ -1,8 +1,11 @@
-package com.heroes.api.heroesapi.persistence;
+package com.choreio.api.choreioapi.persistence;
+import com.choreio.api.choreioapi.model.CreatorDoer;
+import com.choreio.api.choreioapi.model.Prize;
+import com.choreio.api.choreioapi.model.Chore;
+
+
 
 import java.io.IOException;
-import com.heroes.api.heroesapi.model.CreatorDoer; //fix this
-
 
 public interface CreaterDoerDAO {
 
@@ -28,7 +31,7 @@ public interface CreaterDoerDAO {
      */
 
      //add to chorelist of createrdoer & add corresponding points 
-     CreatorDoer completeChore( Chore chore ) throws IOException;
+     CreatorDoer completeChore( String username, Chore chore ) throws IOException;
 
     /**
      * Claims prize and puts it into the claimedprizes list of {@linkplain CreatorDoer creatordoer} with the given username
@@ -40,7 +43,7 @@ public interface CreaterDoerDAO {
 
     //add to claimlist of createrdoer  
     //subtracts points of the createrdoer by the same number of points of the prize
-    CreatorDoer claimPrize( Prize prize ) throws IOException;
+    CreatorDoer claimPrize( String username, Prize prize ) throws IOException;
 
     /**
      * Removes a claimed prize from the list of claimedPrizes of the {@linkplain CreatorDoer creatordoer} with the given username
@@ -50,5 +53,5 @@ public interface CreaterDoerDAO {
      * @throws IOException if underlying storage cannot be accessed
      */
     //remove the prize from the claimprize list of createrdoer
-     CreatorDoer redeemPrize() throws IOException;
+     CreatorDoer redeemPrize( String username, int prizeID ) throws IOException;
 }
