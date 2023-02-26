@@ -16,51 +16,43 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.choreio.api.choreioapi.persistence.HeroDAO;
-import com.choreio.api.choreioapi.model.Hero;
+import com.choreio.api.choreioapi.persistence.PrizeDAO;
+import com.choreio.api.choreioapi.model.Prize;
 
-/**
- * Handles the REST API requests for the Hero resource
- * <p>
- * {@literal @}RestController Spring annotation identifies this class as a REST API
- * method handler to the Spring framework
- * 
- * @author SWEN Faculty
- */
 
 @RestController
-@RequestMapping("heroes")
-public class HeroController {
-    private static final Logger LOG = Logger.getLogger(HeroController.class.getName());
-    private HeroDAO heroDao;
+@RequestMapping("prizes")
+public class PrizeController {
+    private static final Logger LOG = Logger.getLogger(PrizeController.class.getName());
+    private PrizeDAO prizeDAO;
 
     /**
      * Creates a REST API controller to reponds to requests
      * 
-     * @param heroDao The {@link HeroDAO Hero Data Access Object} to perform CRUD operations
+     * @param prizeDAO The {@link prizeDAO prizeDAO Data Access Object} to perform CRUD operations
      * <br>
      * This dependency is injected by the Spring Framework
      */
-    public HeroController(HeroDAO heroDao) {
-        this.heroDao = heroDao;
+    public PrizeController(PrizeDAO prizeDAO) {
+        this.prizeDAO = prizeDAO;
     }
 
     /**
-     * Responds to the GET request for a {@linkplain Hero hero} for the given id
+     * Responds to the GET request for a {@linkplain Prize prize} for the given id
      * 
-     * @param id The id used to locate the {@link Hero hero}
+     * @param id The id used to locate the {@link Prize prize}
      * 
-     * @return ResponseEntity with {@link Hero hero} object and HTTP status of OK if found<br>
+     * @return ResponseEntity with {@link Prize prize} object and HTTP status of OK if found<br>
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Hero> getHero(@PathVariable int id) {
-        LOG.info("GET /heroes/" + id);
+    public ResponseEntity<Prize> getPrize(@PathVariable int id) {
+        LOG.info("GET /prizes/" + id);
         try {
-            Hero hero = heroDao.getHero(id);
-            if (hero != null)
-                return new ResponseEntity<Hero>(hero,HttpStatus.OK);
+            Prize prize = prizeDAO.getPrize(id);
+            if (prize != null)
+                return new ResponseEntity<Prize>(prize, HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -71,18 +63,18 @@ public class HeroController {
     }
 
     /**
-     * Responds to the GET request for all {@linkplain Hero heroes}
+     * Responds to the GET request for all {@linkplain Prize prize}
      * 
-     * @return ResponseEntity with array of {@link Hero hero} objects (may be empty) and
+     * @return ResponseEntity with array of {@link Prize prize} objects (may be empty) and
      * HTTP status of OK<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("")
-    public ResponseEntity<Hero[]> getHeroes() {
-        LOG.info("GET /heroes");
+    public ResponseEntity<Prize[]> getPrizes() {
+        LOG.info("GET /prizes");
         try {
-            Hero[] heroes = heroDao.getHeroes();
-            return new ResponseEntity<Hero[]>(heroes,HttpStatus.OK);
+            Prize[] prizes = prizeDAO.getPrizes();
+            return new ResponseEntity<Prize[]>(prizes, HttpStatus.OK);
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
@@ -91,12 +83,12 @@ public class HeroController {
     }
 
     /**
-     * Responds to the GET request for all {@linkplain Hero heroes} whose name contains
+     * Responds to the GET request for all {@linkplain Prize prizes} whose name contains
      * the text in name
      * 
-     * @param name The name parameter which contains the text used to find the {@link Hero heroes}
+     * @param name The name parameter which contains the text used to find the {@link Prize prizes}
      * 
-     * @return ResponseEntity with array of {@link Hero hero} objects (may be empty) and
+     * @return ResponseEntity with array of {@link Prize prizes} objects (may be empty) and
      * HTTP status of OK<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      * <p>
@@ -104,11 +96,11 @@ public class HeroController {
      * GET http://localhost:8080/heroes/?name=ma
      */
     @GetMapping("/")
-    public ResponseEntity<Hero[]> searchHeroes(@RequestParam String name) {
-        LOG.info("GET /heroes/?name="+name);
+    public ResponseEntity<Prize[]> searchPrizes(@RequestParam String name) {
+        LOG.info("GET /prizes/?name="+name);
         try {
-            Hero[] heroes = heroDao.findHeroes(name);
-            return new ResponseEntity<Hero[]>(heroes,HttpStatus.OK);
+            Prize[] prizes = prizeDAO.findPrizes(name);
+            return new ResponseEntity<Prize[]>(prizes, HttpStatus.OK);
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
@@ -117,26 +109,26 @@ public class HeroController {
     }
 
     /**
-     * Creates a {@linkplain Hero hero} with the provided hero object
+     * Creates a {@linkplain Prize prize} with the provided prize object
      * 
-     * @param hero - The {@link Hero hero} to create
+     * @param hero - The {@link Prize prize} to create
      * 
-     * @return ResponseEntity with created {@link Hero hero} object and HTTP status of CREATED<br>
-     * ResponseEntity with HTTP status of CONFLICT if {@link Hero hero} object already exists<br>
+     * @return ResponseEntity with created {@link Prize prize} object and HTTP status of CREATED<br>
+     * ResponseEntity with HTTP status of CONFLICT if {@link Prize prize} object already exists<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PostMapping("")
-    public ResponseEntity<Hero> createHero(@RequestBody Hero hero) {
-        LOG.info("POST /heroes " + hero);
+    public ResponseEntity<Prize> createPrize(@RequestBody Prize prize) {
+        LOG.info("POST /prizes " + prize);
         try {
-            Hero[] heroes = heroDao.getHeroes();
-            for (Hero i : heroes) {
-                if (i.getName().equals(hero.getName())) {
+            Prize[] prizes = prizeDAO.getPrizes();
+            for (Prize i : prizes) {
+                if (i.getPrizeName().equals(prize.getPrizeName())) {
                     return new ResponseEntity<>(HttpStatus.CONFLICT);
                 }
             }
-            heroDao.createHero(hero);
-            return new ResponseEntity<Hero>(hero,HttpStatus.CREATED);
+            prizeDAO.createPrize(prize);
+            return new ResponseEntity<Prize>(prize, HttpStatus.CREATED);
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
@@ -144,24 +136,24 @@ public class HeroController {
         }
     }
 
-    /**
-     * Updates the {@linkplain Hero hero} with the provided {@linkplain Hero hero} object, if it exists
+        /**
+     * Updates the {@linkplain Prize prize} with the provided {@linkplain Prize prize} object, if it exists
      * 
-     * @param hero The {@link Hero hero} to update
+     * @param prize The {@link Prize prize} to update
      * 
-     * @return ResponseEntity with updated {@link Hero hero} object and HTTP status of OK if updated<br>
+     * @return ResponseEntity with updated {@link Prize prize} object and HTTP status of OK if updated<br>
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PutMapping("")
-    public ResponseEntity<Hero> updateHero(@RequestBody Hero hero) {
-        LOG.info("PUT /heroes " + hero);
+    public ResponseEntity<Prize> updatePrize(@RequestBody Prize prize) {
+        LOG.info("PUT /prizes " + prize);
         try {
-            Hero newHero = heroDao.updateHero(hero);
-            if (newHero == null) {
+            Prize newPrize = prizeDAO.updatePrize(prize);
+            if (newPrize == null){
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            return new ResponseEntity<Hero>(newHero,HttpStatus.OK);
+            return new ResponseEntity<Prize>(prize, HttpStatus.OK);
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
@@ -170,19 +162,19 @@ public class HeroController {
     }
 
     /**
-     * Deletes a {@linkplain Hero hero} with the given id
+     * Deletes a {@linkplain Prize prize} with the given id
      * 
-     * @param id The id of the {@link Hero hero} to deleted
+     * @param id The id of the {@link Prize prize} to deleted
      * 
      * @return ResponseEntity HTTP status of OK if deleted<br>
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Hero> deleteHero(@PathVariable int id) {
-        LOG.info("DELETE /heroes/" + id);
+    public ResponseEntity<Prize> deletePrize(@PathVariable int id) {
+        LOG.info("DELETE /prizes/" + id);
         try {
-            if (heroDao.deleteHero(id)) {
+            if (prizeDAO.deletePrize(id)) {
                 return new ResponseEntity<>(HttpStatus.OK);
             }
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -192,4 +184,6 @@ public class HeroController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    
 }

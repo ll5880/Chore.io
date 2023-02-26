@@ -16,51 +16,51 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import com.choreio.api.choreioapi.persistence.HeroDAO;
-import com.choreio.api.choreioapi.model.Hero;
+import com.choreio.api.choreioapi.persistence.ChoreDAO;
+import com.choreio.api.choreioapi.model.Chore;
+
 
 /**
- * Handles the REST API requests for the Hero resource
+ * Handles the REST API requests for the Chore resource
  * <p>
  * {@literal @}RestController Spring annotation identifies this class as a REST API
  * method handler to the Spring framework
  * 
- * @author SWEN Faculty
+ * @author Patricio Solis
  */
-
 @RestController
-@RequestMapping("heroes")
-public class HeroController {
-    private static final Logger LOG = Logger.getLogger(HeroController.class.getName());
-    private HeroDAO heroDao;
+@RequestMapping("chores")
+public class ChoreController {
+    private static final Logger LOG = Logger.getLogger(ChoreController.class.getName());
+    private ChoreDAO choreDAO;
 
     /**
      * Creates a REST API controller to reponds to requests
      * 
-     * @param heroDao The {@link HeroDAO Hero Data Access Object} to perform CRUD operations
+     * @param choreDao The {@link choreDAO Chore Data Access Object} to perform CRUD operations
      * <br>
      * This dependency is injected by the Spring Framework
      */
-    public HeroController(HeroDAO heroDao) {
-        this.heroDao = heroDao;
+    public ChoreController(ChoreDAO choreDAO) {
+        this.choreDAO = choreDAO;
     }
 
     /**
-     * Responds to the GET request for a {@linkplain Hero hero} for the given id
+     * Responds to the GET request for a {@linkplain Chore chore} for the given id
      * 
-     * @param id The id used to locate the {@link Hero hero}
+     * @param id The id used to locate the {@link Chore chore}
      * 
-     * @return ResponseEntity with {@link Hero hero} object and HTTP status of OK if found<br>
+     * @return ResponseEntity with {@link Chore chore} object and HTTP status of OK if found<br>
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("/{id}")
-    public ResponseEntity<Hero> getHero(@PathVariable int id) {
-        LOG.info("GET /heroes/" + id);
+    public ResponseEntity<Chore> getChore(@PathVariable int id) {
+        LOG.info("GET /chores/" + id);
         try {
-            Hero hero = heroDao.getHero(id);
-            if (hero != null)
-                return new ResponseEntity<Hero>(hero,HttpStatus.OK);
+            Chore chore = choreDAO.getChore(id);
+            if (chore != null)
+                return new ResponseEntity<Chore>(chore, HttpStatus.OK);
             else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -71,18 +71,18 @@ public class HeroController {
     }
 
     /**
-     * Responds to the GET request for all {@linkplain Hero heroes}
+     * Responds to the GET request for all {@linkplain Chore chores}
      * 
-     * @return ResponseEntity with array of {@link Hero hero} objects (may be empty) and
+     * @return ResponseEntity with array of {@link Chore chore} objects (may be empty) and
      * HTTP status of OK<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @GetMapping("")
-    public ResponseEntity<Hero[]> getHeroes() {
-        LOG.info("GET /heroes");
+    public ResponseEntity<Chore[]> getChores() {
+        LOG.info("GET /chores");
         try {
-            Hero[] heroes = heroDao.getHeroes();
-            return new ResponseEntity<Hero[]>(heroes,HttpStatus.OK);
+            Chore[] chores = choreDAO.getChores();
+            return new ResponseEntity<Chore[]>(chores, HttpStatus.OK);
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
@@ -91,12 +91,12 @@ public class HeroController {
     }
 
     /**
-     * Responds to the GET request for all {@linkplain Hero heroes} whose name contains
+     * Responds to the GET request for all {@linkplain Chore chores} whose name contains
      * the text in name
      * 
-     * @param name The name parameter which contains the text used to find the {@link Hero heroes}
+     * @param name The name parameter which contains the text used to find the {@link Chore chores}
      * 
-     * @return ResponseEntity with array of {@link Hero hero} objects (may be empty) and
+     * @return ResponseEntity with array of {@link Chore chore} objects (may be empty) and
      * HTTP status of OK<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      * <p>
@@ -104,11 +104,11 @@ public class HeroController {
      * GET http://localhost:8080/heroes/?name=ma
      */
     @GetMapping("/")
-    public ResponseEntity<Hero[]> searchHeroes(@RequestParam String name) {
-        LOG.info("GET /heroes/?name="+name);
+    public ResponseEntity<Chore[]> searchChores(@RequestParam String name) {
+        LOG.info("GET /chores/?name="+name);
         try {
-            Hero[] heroes = heroDao.findHeroes(name);
-            return new ResponseEntity<Hero[]>(heroes,HttpStatus.OK);
+            Chore[] chores = choreDAO.findChores(name);
+            return new ResponseEntity<Chore[]>(chores, HttpStatus.OK);
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
@@ -117,26 +117,26 @@ public class HeroController {
     }
 
     /**
-     * Creates a {@linkplain Hero hero} with the provided hero object
+     * Creates a {@linkplain Chore chore} with the provided chore object
      * 
-     * @param hero - The {@link Hero hero} to create
+     * @param chore - The {@link Chore chore} to create
      * 
-     * @return ResponseEntity with created {@link Hero hero} object and HTTP status of CREATED<br>
-     * ResponseEntity with HTTP status of CONFLICT if {@link Hero hero} object already exists<br>
+     * @return ResponseEntity with created {@link Chore chore} object and HTTP status of CREATED<br>
+     * ResponseEntity with HTTP status of CONFLICT if {@link Chore chore} object already exists<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PostMapping("")
-    public ResponseEntity<Hero> createHero(@RequestBody Hero hero) {
-        LOG.info("POST /heroes " + hero);
+    public ResponseEntity<Chore> createChore(@RequestBody Chore chore) {
+        LOG.info("POST /chores " + chore);
         try {
-            Hero[] heroes = heroDao.getHeroes();
-            for (Hero i : heroes) {
-                if (i.getName().equals(hero.getName())) {
+            Chore[] chores = choreDAO.getChores();
+            for (Chore i : chores) {
+                if (i.getChoreName().equals(chore.getChoreName())) {
                     return new ResponseEntity<>(HttpStatus.CONFLICT);
                 }
             }
-            heroDao.createHero(hero);
-            return new ResponseEntity<Hero>(hero,HttpStatus.CREATED);
+            choreDAO.createChore(chore);
+            return new ResponseEntity<Chore>(chore, HttpStatus.CREATED);
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
@@ -145,23 +145,23 @@ public class HeroController {
     }
 
     /**
-     * Updates the {@linkplain Hero hero} with the provided {@linkplain Hero hero} object, if it exists
+     * Updates the {@linkplain Chore chore} with the provided {@linkplain Chore chore} object, if it exists
      * 
-     * @param hero The {@link Hero hero} to update
+     * @param chore The {@link Chore chore} to update
      * 
-     * @return ResponseEntity with updated {@link Hero hero} object and HTTP status of OK if updated<br>
+     * @return ResponseEntity with updated {@link Chore chore} object and HTTP status of OK if updated<br>
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @PutMapping("")
-    public ResponseEntity<Hero> updateHero(@RequestBody Hero hero) {
-        LOG.info("PUT /heroes " + hero);
+    public ResponseEntity<Chore> updateChore(@RequestBody Chore chore) {
+        LOG.info("PUT /chores " + chore);
         try {
-            Hero newHero = heroDao.updateHero(hero);
-            if (newHero == null) {
+            Chore newChore = choreDAO.updateChore(chore);
+            if (newChore == null) {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             }
-            return new ResponseEntity<Hero>(newHero,HttpStatus.OK);
+            return new ResponseEntity<Chore>(newChore, HttpStatus.OK);
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
@@ -170,19 +170,19 @@ public class HeroController {
     }
 
     /**
-     * Deletes a {@linkplain Hero hero} with the given id
+     * Deletes a {@linkplain Chore chore} with the given id
      * 
-     * @param id The id of the {@link Hero hero} to deleted
+     * @param id The id of the {@link Chore chore} to deleted
      * 
      * @return ResponseEntity HTTP status of OK if deleted<br>
      * ResponseEntity with HTTP status of NOT_FOUND if not found<br>
      * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
      */
     @DeleteMapping("/{id}")
-    public ResponseEntity<Hero> deleteHero(@PathVariable int id) {
-        LOG.info("DELETE /heroes/" + id);
+    public ResponseEntity<Chore> deleteChore(@PathVariable int id) {
+        LOG.info("DELETE /chores/" + id);
         try {
-            if (heroDao.deleteHero(id)) {
+            if (choreDAO.deleteChore(id)) {
                 return new ResponseEntity<>(HttpStatus.OK);
             }
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
