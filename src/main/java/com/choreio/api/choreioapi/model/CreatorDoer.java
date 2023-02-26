@@ -50,9 +50,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
         this.points -= prize.getPointCost();
     }
 
-    public Prize redeemPrize(Prize prize){
-        if(claimedPrizes.containsKey(prize.getId())){
-            return this.claimedPrizes.remove(prize.getId());
+    public Prize redeemPrize(int prizeID){
+        if(claimedPrizes.size() > 0){
+            return this.claimedPrizes.remove(prizeID);
         }
         return null;
     }
