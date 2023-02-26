@@ -43,10 +43,11 @@ public class CreatorDoerController {
         LOG.info("GET /username/" + username);
         try {
             CreatorDoer creatordoer = creatorDoerDAO.getCreatorDoer(username);
-            if (creatordoer != null)
+            if (creatordoer != null) {
                 return new ResponseEntity<CreatorDoer>(creatordoer, HttpStatus.OK);
-            else
+            } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
@@ -55,10 +56,10 @@ public class CreatorDoerController {
     }
 
     @GetMapping("")
-    public ResponseEntity<CreatorDoer[]> getCreatorDoersArray() {
+    public ResponseEntity<CreatorDoer[]> getCreatorDoers() {
         LOG.info("GET /creatordoers");
         try {
-            CreatorDoer[] creatorDoers = creatorDoerDAO.getCreatorDoersArray();
+            CreatorDoer[] creatorDoers = creatorDoerDAO.getCreatorDoers();
             return new ResponseEntity<CreatorDoer[]>(creatorDoers, HttpStatus.OK);
         }
         catch(IOException e) {

@@ -41,7 +41,7 @@ public class CreatorDoerFileDAO implements CreatorDoerDAO{
         load();  // load the heroes from the file
     }
 
-    public CreatorDoer[] getCreatorDoersArray() { 
+    private CreatorDoer[] getCreatorDoersArray() { 
         ArrayList<CreatorDoer> creatorDoerArrayList = new ArrayList<>();
 
         for (CreatorDoer creatorDoer : createrDoers.values()) {
@@ -179,9 +179,17 @@ public class CreatorDoerFileDAO implements CreatorDoerDAO{
         synchronized(createrDoers) {
             if (!createrDoers.containsKey(username)) {
                 return null;
+            } else {
+                CreatorDoer creatorDoer = createrDoers.get(username);
+                return creatorDoer;
             }
-            CreatorDoer creatorDoer = createrDoers.get(username);
-            return creatorDoer;
+        }
+    }
+
+    @Override
+    public CreatorDoer[] getCreatorDoers() {
+        synchronized(createrDoers) {
+            return getCreatorDoersArray();
         }
     }
 }
