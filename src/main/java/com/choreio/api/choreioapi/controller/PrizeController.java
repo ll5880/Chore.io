@@ -83,30 +83,6 @@ public class PrizeController {
     }
 
     /**
-     * Responds to the GET request for all {@linkplain Prize prizes} whose name contains
-     * the text in name
-     * 
-     * @param name The name parameter which contains the text used to find the {@link Prize prizes}
-     * 
-     * @return ResponseEntity with array of {@link Prize prizes} objects (may be empty) and
-     * HTTP status of OK<br>
-     * ResponseEntity with HTTP status of INTERNAL_SERVER_ERROR otherwise
-     * <p>
-     */
-    @GetMapping("/")
-    public ResponseEntity<Prize[]> searchPrizes(@RequestParam String name) {
-        LOG.info("GET /prizes/?name="+name);
-        try {
-            Prize[] prizes = prizeDAO.findPrizes(name);
-            return new ResponseEntity<Prize[]>(prizes, HttpStatus.OK);
-        }
-        catch(IOException e) {
-            LOG.log(Level.SEVERE,e.getLocalizedMessage());
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-
-    /**
      * Creates a {@linkplain Prize prize} with the provided prize object
      * 
      * @param prize - The {@link Prize prize} to create
