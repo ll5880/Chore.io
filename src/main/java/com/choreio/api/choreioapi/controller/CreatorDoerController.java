@@ -131,7 +131,7 @@ public class CreatorDoerController {
 
     }
 
-    @PutMapping("/{username}/claimePrize/{prizeID}")
+    @PutMapping("/{username}/claimPrize/{prizeID}")
     public ResponseEntity<CreatorDoer> claimPrize(@PathVariable String username, @PathVariable int prizeID) throws IOException {
         LOG.info("PUT / " + username + "/" + prizeID);
 
