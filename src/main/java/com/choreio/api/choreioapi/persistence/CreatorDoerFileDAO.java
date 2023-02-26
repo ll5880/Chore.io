@@ -41,7 +41,7 @@ public class CreatorDoerFileDAO implements CreatorDoerDAO{
         load();  // load the heroes from the file
     }
 
-    private CreatorDoer[] getCreatorDoersArray() { 
+    public CreatorDoer[] getCreatorDoersArray() { 
         ArrayList<CreatorDoer> creatorDoerArrayList = new ArrayList<>();
 
         for (CreatorDoer creatorDoer : createrDoers.values()) {
@@ -141,7 +141,9 @@ public class CreatorDoerFileDAO implements CreatorDoerDAO{
                 return null; 
             else {
                 // Add to cart
-                creatorDoer.claimPrize(prize);
+                if (!creatorDoer.claimPrize(prize)) {
+                    return null;
+                }
 
                 // Update buyers list with new cart
                 createrDoers.put(creatorDoer.getUserName(), creatorDoer);
@@ -153,7 +155,7 @@ public class CreatorDoerFileDAO implements CreatorDoerDAO{
     }
 
     @Override
-    public CreatorDoer redeemPrize(String username, Prize prize) throws IOException {
+    public CreatorDoer redeemPrize(String username, int prizeID) throws IOException {
         synchronized(createrDoers) {
             CreatorDoer creatorDoer = createrDoers.get(username);
 
@@ -162,13 +164,24 @@ public class CreatorDoerFileDAO implements CreatorDoerDAO{
                 return null; 
             else {
                 // Delete item from cart
-                creatorDoer.redeemPrize(prize.getId());
+                creatorDoer.redeemPrize(prizeID);
 
                 // Update buyers list with new cart
                 createrDoers.put(creatorDoer.getUserName(), creatorDoer);
                 save(); 
                 return creatorDoer;
             }
+        }
+    }
+
+    @Override
+    public CreatorDoer getCreatorDoer(String username) throws IOException {
+        synchronized(createrDoers) {
+            if (!createrDoers.containsKey(username)) {
+                return null;
+            }
+            CreatorDoer creatorDoer = createrDoers.get(username);
+            return creatorDoer;
         }
     }
 }

@@ -10,6 +10,10 @@ public interface CreatorDoerDAO {
 
     CreatorDoer login( String username) throws IOException;
 
+    CreatorDoer getCreatorDoer( String username ) throws IOException;
+
+    CreatorDoer[] getCreatorDoersArray() throws IOException;
+
     /**
      * Creates a new user as a creater of chores or completer of chorse {@linkplain CreatorDoer creatordoer} 
      * with the given username
@@ -51,5 +55,5 @@ public interface CreatorDoerDAO {
      * @throws IOException if underlying storage cannot be accessed
      */
     //remove the prize from the claimprize list of createrdoer
-     CreatorDoer redeemPrize( String username, Prize prize ) throws IOException;
+     CreatorDoer redeemPrize( String username, int prizeID ) throws IOException;
 }

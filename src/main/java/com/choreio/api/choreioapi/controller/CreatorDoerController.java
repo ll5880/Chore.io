@@ -1,6 +1,7 @@
 package com.choreio.api.choreioapi.controller;
 
 
+import org.apache.catalina.valves.CrawlerSessionManagerValve;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,22 +39,51 @@ public class CreatorDoerController {
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<CreatorDoer> login(@PathVariable String username) {
-        LOG.info("GET creatordoers/" + username);
-
-        try{
-            CreatorDoer creatorDoer = creatorDoerDAO.login(username);
-            if (creatorDoer == null) {
+    public ResponseEntity<CreatorDoer> getCreatorDoer(@PathVariable String username) {
+        LOG.info("GET /username/" + username);
+        try {
+            CreatorDoer creatordoer = creatorDoerDAO.getCreatorDoer(username);
+            if (creatordoer != null)
+                return new ResponseEntity<CreatorDoer>(creatordoer, HttpStatus.OK);
+            else
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            } else {
-                return new ResponseEntity<CreatorDoer>(creatorDoer, HttpStatus.OK);
-            }
         }
         catch(IOException e) {
             LOG.log(Level.SEVERE,e.getLocalizedMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }  
+        }
     }
+
+    @GetMapping("")
+    public ResponseEntity<CreatorDoer[]> getCreatorDoersArray() {
+        LOG.info("GET /creatordoers");
+        try {
+            CreatorDoer[] creatorDoers = creatorDoerDAO.getCreatorDoersArray();
+            return new ResponseEntity<CreatorDoer[]>(creatorDoers, HttpStatus.OK);
+        }
+        catch(IOException e) {
+            LOG.log(Level.SEVERE,e.getLocalizedMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // @GetMapping("/{username}")
+    // public ResponseEntity<CreatorDoer> login(@PathVariable String username) {
+    //     LOG.info("GET creatordoers/" + username);
+
+    //     try{
+    //         CreatorDoer creatorDoer = creatorDoerDAO.login(username);
+    //         if (creatorDoer == null) {
+    //             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    //         } else {
+    //             return new ResponseEntity<CreatorDoer>(creatorDoer, HttpStatus.OK);
+    //         }
+    //     }
+    //     catch(IOException e) {
+    //         LOG.log(Level.SEVERE,e.getLocalizedMessage());
+    //         return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    //     }  
+    // }
 
     @PostMapping("/{username}")
     public ResponseEntity<CreatorDoer> createCreatorDoer(@PathVariable String username) {
@@ -73,11 +103,14 @@ public class CreatorDoerController {
         }   
     }
 
-    @PutMapping("/{username}/{chore}")
-    public ResponseEntity<CreatorDoer> completeChore(@PathVariable String username, @PathVariable Chore chore) {
-        LOG.info("PUT / " + username + "/" + chore);
+    @PutMapping("/{username}/completeChore/{choreID}")
+    public ResponseEntity<CreatorDoer> completeChore(@PathVariable String username, @PathVariable int choreID) {
+        LOG.info("PUT / " + username + "/" + choreID);
 
         try{            
+
+            Chore chore = choreDao.getChore(choreID);
+
             if (chore != null) {
                 //if exists put it in the completed chore list
                 CreatorDoer creatordoer = creatorDoerDAO.completeChore(username, chore);
@@ -97,15 +130,18 @@ public class CreatorDoerController {
 
     }
 
-    @PutMapping("/a/{username}/{prize}")
-    public ResponseEntity<CreatorDoer> claimPrize(String username, Prize prize) throws IOException {
-        LOG.info("PUT / " + username + "/" + prize);
+    @PutMapping("/{username}/claimePrize/{prizeID}")
+    public ResponseEntity<CreatorDoer> claimPrize(@PathVariable String username, @PathVariable int prizeID) throws IOException {
+        LOG.info("PUT / " + username + "/" + prizeID);
 
         try{            
+            Prize prize = prizeDao.getPrize(prizeID);
             if (prize != null) {
                 //puts a prize into the claimed prized list
                 CreatorDoer creatordoer = creatorDoerDAO.claimPrize(username, prize);
-
+                if (creatordoer == null) {
+                    return new ResponseEntity<CreatorDoer>(creatordoer, HttpStatus.NOT_ACCEPTABLE);
+                } 
                 //remove the prize list
                 prizeDao.deletePrize(prize.getId());
 
@@ -120,16 +156,21 @@ public class CreatorDoerController {
         }   
     }
 
-    @DeleteMapping("/a/{username}/{prize}")
-    public ResponseEntity<CreatorDoer> redeemPrize(String username, Prize prize) throws IOException {
-        LOG.info("DELETE / " + username + "/" + prize);
+    @DeleteMapping("/{username}/{prizeID}")
+    public ResponseEntity<CreatorDoer> redeemPrize(@PathVariable String username, @PathVariable int prizeID) throws IOException {
+        LOG.info("DELETE / " + username + "/" + prizeID);
 
         try{            
-            if (prize != null) {
-                //puts a prize into the claimed prized list
-                CreatorDoer creatordoer = creatorDoerDAO.redeemPrize(username, prize);
+            CreatorDoer creatorDoer = creatorDoerDAO.getCreatorDoer(username);
+            if ( creatorDoer != null ) {
+                if( creatorDoer.redeemPrize(prizeID) != null ){
+                    //puts a prize into the claimed prized list
+                    CreatorDoer creatordoer = creatorDoerDAO.redeemPrize(username, prizeID);
 
-                return new ResponseEntity<CreatorDoer>(creatordoer, HttpStatus.OK);
+                    return new ResponseEntity<CreatorDoer>(creatordoer, HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<CreatorDoer>(HttpStatus.CONFLICT);
+                }
             } else {
                 return new ResponseEntity<CreatorDoer>(HttpStatus.CONFLICT);
             }

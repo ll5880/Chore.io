@@ -1,1 +1,39 @@
-[{"userName":"bon","points":0,"completedChores":[],"claimedPrizes":[]},{"userName":"lucie","points":0,"completedChores":[],"claimedPrizes":[]}]
+[
+    {
+        "userName": "bon",
+        "points": 0,
+        "completedChores": [],
+        "claimedPrizes": {}
+    },
+    {
+        "userName": "tomy",
+        "points": 0,
+        "completedChores": [],
+        "claimedPrizes": {}
+    },
+    {
+        "userName": "shame",
+        "points": 1,
+        "completedChores": [
+            {
+                "id": 11,
+                "choreName": "sweep",
+                "choreDesc": "sweep sweep",
+                "points": 3
+            }
+        ],
+        "claimedPrizes": {}
+    },
+    {
+        "userName": "shera",
+        "points": 0,
+        "completedChores": [],
+        "claimedPrizes": {}
+    },
+    {
+        "userName": "lucie",
+        "points": 0,
+        "completedChores": [],
+        "claimedPrizes": {}
+    }
+]

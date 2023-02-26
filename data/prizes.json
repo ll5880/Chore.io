@@ -1,1 +1,20 @@
-[{"id":0,"prizeName":"Ice Cream","prizeDesc":"Get Ice Cream whenever!","pointCost":10},{"id":2,"prizeName":"Ice Cream","prizeDesc":"Get Ice Cream whenever!","pointCost":10},{"id":3,"prizeName":"No dishes 3 days","prizeDesc":"that","pointCost":10},{"id":4,"prizeName":"No dishes 2 days","prizeDesc":"that","pointCost":10}]
+[
+    {
+        "id": 2,
+        "prizeName": "Ice Cream",
+        "prizeDesc": "Get Ice Cream whenever!",
+        "pointCost": 10
+    },
+    {
+        "id": 3,
+        "prizeName": "No dishes 3 days",
+        "prizeDesc": "that",
+        "pointCost": 10
+    },
+    {
+        "id": 4,
+        "prizeName": "No dishes 2 days",
+        "prizeDesc": "that",
+        "pointCost": 10
+    }
+]

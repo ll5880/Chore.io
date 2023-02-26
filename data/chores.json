@@ -1,1 +1,8 @@
-[{"id":11,"choreName":"sweep","choreDesc":"sweep sweep","points":3},{"id":12,"choreName":"dishes","choreDesc":"sploosh","points":100}]
+[
+    {
+        "id": 12,
+        "choreName": "dishes",
+        "choreDesc": "sploosh",
+        "points": 100
+    }
+]
