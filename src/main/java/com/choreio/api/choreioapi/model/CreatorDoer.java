@@ -1,6 +1,7 @@
 package com.choreio.api.choreioapi.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -14,13 +15,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
     @JsonProperty("userName") private String userName;
     @JsonProperty("points") private int points;
     @JsonProperty("completedChores") private ArrayList<Chore> completedChores;
-    @JsonProperty("claimedPrizes") private ArrayList<Prize> claimedPrizes;
+    @JsonProperty("claimedPrizes") private HashMap<Integer, Prize> claimedPrizes;
 
     public CreatorDoer(@JsonProperty("userName") String userName){
         this.userName = userName;
         this.points = 0;
         this.completedChores = new ArrayList<>();
-        this.claimedPrizes = new ArrayList<>();
+        this.claimedPrizes = new HashMap<>();
     }
 
     public String getUserName(){
@@ -35,8 +36,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
         return this.completedChores;
     }
 
-    public ArrayList<Prize> getClaimedPrizes(){
-        return this.claimedPrizes;
+    public Object[] getClaimedPrizes(){
+        return  this.claimedPrizes.values().toArray();
     }
 
     public void completeChore(Chore chore){
@@ -45,13 +46,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
     }
 
     public void claimPrize(Prize prize){
-        this.claimedPrizes.add(prize);
+        this.claimedPrizes.put(prize.getId(), prize);
         this.points -= prize.getPointCost();
     }
 
-    public Prize redeemPrize(){
-        if(claimedPrizes.size() > 0){
-            return this.claimedPrizes.remove(0);
+    public Prize redeemPrize(Prize prize){
+        if(claimedPrizes.containsKey(prize.getId())){
+            return this.claimedPrizes.remove(prize.getId());
         }
         return null;
     }
