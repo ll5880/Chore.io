@@ -1,0 +1,19 @@
+<html>
+<div class="container">
+    <h2>Chores</h2>
+    <table class="table">
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Points</th>
+        </tr>
+        <tr *ngFor = "let chore of chores">
+            <td>{{chore.id}}</td>
+            <td>{{chore.choreName}}</td>
+            <td>{{chore.choreDesc}}</td>
+            <td>{{chore.points}}</td>
+        </tr>
+      </table>
+</div>
+</html>
